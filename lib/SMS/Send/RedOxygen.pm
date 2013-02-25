@@ -1,20 +1,20 @@
-package SMS::Send::RedSMS;
+package SMS::Send::RedOxygen;
 
 =pod
 
 =head1 NAME
 
-SMS::Send::RedSMS - SMS::Send driver for RedSMS.com
+SMS::Send::RedOxygen - SMS::Send driver for RedOxygen.com RedOxygen
 
 =head1 SYNOPSIS
 
-  # Create a RedSMS sender. For now, only AccountID+Password authentication
+  # Create a RedOxygen sender. For now, only AccountID+Password authentication
   # is supported; anonymous IP address based sending won't work.
   #
   my $send = SMS::Send->new( 
-      'RedSMS',
-      _accountid => 'RedSMSAccountID',
-      _password => 'RedSMSPassword',
+      'RedOxygen',
+      _accountid => 'RedOxygenAccountID',
+      _password => 'RedOxygenPassword',
       _email => 'RegisteredEmail'
   );
   
@@ -36,8 +36,8 @@ This SMS::Send driver bridges the SMS::Send API to RedOxygen's web API for SMS
 sending. RedOxygen uses custom message formats and response codes and can't just
 be used via simple JSON POST calls.
 
-To use this driver you must have a RedSMS account, either a trial or full account.
-RedSMS's rates are not flat across all regions on most accounts though such accounts
+To use this driver you must have a RedOxygen account, either a trial or full account.
+RedOxygen's rates are not flat across all regions on most accounts though such accounts
 may be negoated.
 
 This driver requires numbers to be in full international format.
@@ -54,7 +54,7 @@ use LWP::UserAgent;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '0.06';
+	$VERSION = '1.00';
 	@ISA     = 'SMS::Send::Driver';
 }
 
@@ -95,7 +95,7 @@ sub send_sms
 	my $browser = LWP::UserAgent->new;
 	my %args = @_;
 
-	# RedSMS doesn't check for errors very well and tends to return success
+	# RedOxygen doesn't check for errors very well and tends to return success
 	# when it hasn't done anything. Catch obvious problems.
 	if (!$args{text}) {
 		Carp::croak("No message supplied, need 'text' parameter");
@@ -103,13 +103,13 @@ sub send_sms
 	if (!$args{to}) {
 		Carp::croak("No recipient specified, need 'to' parameter");
 	}
-	# RedSMS doesn't like a leading +, spaces, parens, etc, so strip them
+	# RedOxygen doesn't like a leading +, spaces, parens, etc, so strip them
 	$args{to} =~ s/[^0-9]//g;
 	
 	# Note: We don't test for password. It's optional, as you can use IP Address
 	# based authentication instead.
 
-	# You might expect this to be a hash, but RedSMS cares about the *order*
+	# You might expect this to be a hash, but RedOxygen cares about the *order*
 	# in which the parameters appear in the request. We must specify them precisely
 	# as given below.
 	my $request = [
@@ -124,15 +124,15 @@ sub send_sms
 	Carp::croak("HTTP error POSTing SMS to $self->{url}\n" . $response->status_line)
 		unless $response->is_success();
 
-	# The RedSMS API is pretty damn ugly; instead of returning HTTP codes, it returns
+	# The RedOxygen API is pretty damn ugly; instead of returning HTTP codes, it returns
 	# numeric error codes in the request body as the first 4 bytes. Hopefully all the time.
 	# Extract the error code and return it as well as the full message.
 	#
 	my $redstatus = substr($response->content,0,4);
 	if (int($redstatus) != 0) {
-		Carp::croak("RedSMS API returned error: " . $response->content);
+		Carp::croak("RedOxygen API returned error: " . $response->content);
 	}
-	# RedSMS doesn't give us final delivery confirmation but by this point we know
+	# RedOxygen doesn't give us final delivery confirmation but by this point we know
 	# that submission worked. Probably.
 	return 1;
 }
