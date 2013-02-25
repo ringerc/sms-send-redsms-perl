@@ -103,6 +103,9 @@ sub send_sms
 	if (!$args{to}) {
 		Carp::croak("No recipient specified, need 'to' parameter");
 	}
+	# RedSMS doesn't like a leading +, spaces, parens, etc, so strip them
+	$args{to} =~ s/[^0-9]//g;
+	
 	# Note: We don't test for password. It's optional, as you can use IP Address
 	# based authentication instead.
 
