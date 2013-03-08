@@ -4,7 +4,7 @@ package SMS::Send::RedOxygen;
 
 =head1 NAME
 
-SMS::Send::RedOxygen - SMS::Send driver for RedOxygen.com RedOxygen
+SMS::Send::RedOxygen - SMS::Send driver for RedOxygen.com RedSMS
 
 =head1 SYNOPSIS
 
@@ -43,18 +43,23 @@ This driver requires numbers to be in full international format.
 LWP::UserAgent must be available for this module to function. This is typically
 packaged as libwww-perl on many systems, and can also be installed from CPAN.
 
+=head1 LICENSE
+
+The same as for Perl itself
+
 =cut
 
-use 5.006;
+use 5.010;
 use strict;
-use SMS::Send::Driver ();
-use LWP::UserAgent;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.03';
+	$VERSION = '1.04';
 	@ISA     = 'SMS::Send::Driver';
 }
+
+use SMS::Send::Driver ();
+use LWP::UserAgent;
 
 
 
