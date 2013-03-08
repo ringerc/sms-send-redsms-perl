@@ -24,11 +24,9 @@ SMS::Send::RedOxygen - SMS::Send driver for RedOxygen.com RedOxygen
       to   => '+61 (4) 1234 5678',
   );
 
-  if ( $sent ) {
-        print "Sent test message\n";
-  } else {
-        print "Test message failed\n";
-  }
+  # An exception is thrown if the web API replies with a HTTP status
+  # code other than a 2xx OK or if the reply body error code is anything
+  # except 0000. The error can be found in the exception text.
 
 =head1 DESCRIPTION
 
@@ -54,7 +52,7 @@ use LWP::UserAgent;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.02';
+	$VERSION = '1.03';
 	@ISA     = 'SMS::Send::Driver';
 }
 

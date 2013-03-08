@@ -1,5 +1,8 @@
 Revision history for Perl extension SMS::Send::RedSMS
 
+1.03 Fri Mar 14
+	- Corrected error in README and perldoc
+
 1.02 Fri Mar 14
 	- Fixed omissions where RedSMS -> RedOxygen renaming not applied
 
