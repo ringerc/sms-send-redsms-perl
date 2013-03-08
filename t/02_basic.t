@@ -21,7 +21,7 @@ sub dies_like {
 # Test various missing parameters to ctor
 
 dies_like(
-	sub { SMS::Send->new( 'RedSMS',
+	sub { SMS::Send->new( 'RedOxygen',
 		_accountid  => 'CI00000000',
 		_password   => 'foobarbaz'
 		) },
@@ -30,7 +30,7 @@ dies_like(
 
 
 dies_like(
-	sub { SMS::Send->new( 'RedSMS',
+	sub { SMS::Send->new( 'RedOxygen',
 		_accountid  => 'CI00000000',
 		_email      => 'some@example.com'
 		) },
@@ -39,7 +39,7 @@ dies_like(
 
 
 dies_like(
-	sub { SMS::Send->new( 'RedSMS',
+	sub { SMS::Send->new( 'RedOxygen',
 		_password   => 'foobarbaz',
 		_email      => 'some@example.com'
 		) },
@@ -53,7 +53,7 @@ dies_like(
 # Offline, no-network tests
 
 # Create a new sender
-my $sender = SMS::Send->new( 'RedSMS',
+my $sender = SMS::Send->new( 'RedOxygen',
 		_accountid  => 'CI00000000',
 		_email      => 'some@example.com',
 		_password   => 'foobarbaz'

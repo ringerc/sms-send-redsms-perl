@@ -54,7 +54,7 @@ use LWP::UserAgent;
 
 use vars qw{$VERSION @ISA};
 BEGIN {
-	$VERSION = '1.00';
+	$VERSION = '1.02';
 	@ISA     = 'SMS::Send::Driver';
 }
 

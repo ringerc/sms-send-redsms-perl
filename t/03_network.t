@@ -13,7 +13,7 @@ sub dies_like {
 	like( $@, $regexp, $_[0] || "Dies as expected with message like $regexp" );
 }
 
-my $sender = SMS::Send->new( 'RedSMS',
+my $sender = SMS::Send->new( 'RedOxygen',
 		_accountid  => 'CI00000000',
 		_email      => 'some@example.com',
 		_password   => 'foobarbaz'

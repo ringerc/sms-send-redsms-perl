@@ -20,8 +20,8 @@ no_index:
 requires:
   Carp: 0
   LWP: 5.69
-  SMS::Send: 0.02
+  SMS::Send: 1.06
   perl: 5.6.0
 resources:
   license: http://dev.perl.org/licenses/
-version: 1.00
+version: 1.02

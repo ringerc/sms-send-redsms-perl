@@ -34,7 +34,7 @@ sub dies_like {
 #####################################################################
 # Testing an actual working login
 
-my $sender = SMS::Send->new( 'RedSMS',
+my $sender = SMS::Send->new( 'RedOxygen',
 		_accountid  => $accountid,
 		_email      => $email,
 		_password   => $password
