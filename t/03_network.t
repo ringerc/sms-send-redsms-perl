@@ -19,7 +19,10 @@ my $sender = SMS::Send->new( 'RedOxygen',
 		_password   => 'foobarbaz'
 	);
 
+# Why can the response be 2103 Blacklisted? RedOxygen can't tell me as they insist that isn't
+# a message they emit, yet it appears in the wild on some CPAN test hosts and it's come from
+# their servers. For now just treat it as acceptable.
 dies_like(
 	sub { $sender->send_sms( text => 'Test message', to => '+(61) 444 444 444' ); },
-	qr/2001 The Red Oxygen database does not recognise your email address/
+	qr/(2001 The Red Oxygen database does not recognise your email address|2103 Blacklisted)/
 );
