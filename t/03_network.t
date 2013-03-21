@@ -3,8 +3,16 @@
 
 use strict;
 
-use Test::More tests => 1;
+use Test::More;
 use SMS::Send;
+
+my $donetwork = $ENV{RUN_LIVE_FAIL_TESTS};
+if ( $donetwork ) {
+        plan( tests => 1 );
+} else {
+        plan( skip_all => "Set environment variable RUN_LIVE_FAIL_TESTS to run a live failure-expected test" );
+}
+
 
 # Borrowed from SMS::Send::AU::Vodafone
 sub dies_like {
